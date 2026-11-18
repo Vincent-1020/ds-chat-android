@@ -31,7 +31,7 @@ directly with your own API key. No backend, no account system, no data collectio
 3. Open the app → Settings → paste your DeepSeek API key (create one at
    [platform.deepseek.com](https://platform.deepseek.com))
 
-> WeChat/QQ rename APK files to `xxx.apk.1` when transferring. Remove the trailing `.1` before installing.
+> WeChat/QQ rename APK files to `xxx.apk.1` when transferring. Remove the trailing `.1` before installing. The APK is debug-signed for personal sideloading, not for app stores.
 
 ## Build from source
 
@@ -119,12 +119,6 @@ Upstream targets Chrome 105+; many Huawei/Honor devices still ship Chromium 6x.
 fills in runtime APIs such as `crypto.randomUUID`, `Object.hasOwn` and
 `Array.prototype.at/findLast`.
 
-## Known limitations
-
-- Speech recognition and read-aloud go through DeepSeek's ASR/TTS endpoints and are billed per use
-- Debug signing (self-signed), so it cannot be published to an app store
-- No auto-update; rebuild after the front-end changes
-- Devices on Android 8 with an outdated System WebView may misbehave; Android 9+ recommended
 
 ## License
 

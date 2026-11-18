@@ -29,7 +29,7 @@
 2. 手机上允许「安装未知来源应用」后安装
 3. 打开 App → 设置 → 填入 DeepSeek API Key（在 [platform.deepseek.com](https://platform.deepseek.com) 申请）
 
-> 微信/QQ 传输 APK 会把它改名成 `xxx.apk.1`，手动去掉末尾的 `.1` 再安装即可。
+> 微信/QQ 传输 APK 会把它改名成 `xxx.apk.1`，手动去掉末尾的 `.1` 再安装即可。安装包是 debug 签名，供自己侧载使用，不能上架应用商店。
 
 ## 从源码构建
 
@@ -113,12 +113,6 @@ zip 里的路径统一改成斜杠，并断言不再有反斜杠。
 `web/rspack.config.ts` 把目标降到 `chrome >= 61`，`web/src/polyfills.ts` 补了
 `crypto.randomUUID`、`Object.hasOwn`、`Array.prototype.at/findLast` 等运行时 API。
 
-## 已知限制
-
-- 语音识别/朗读走 DeepSeek 的 ASR/TTS 接口，按量计费
-- debug 签名（自签名），不能上架应用商店
-- 没有自动更新，前端更新后需要重新构建
-- Android 8 且系统 WebView 未更新的设备可能异常，建议 Android 9+
 
 ## 许可
 
