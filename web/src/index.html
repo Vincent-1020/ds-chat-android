@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>DS Chat</title>
+    <script>
+      /* 诊断面板：任何脚本报错/资源加载失败/白屏都会显示在屏幕上，方便在手机上排查。 */
+      (function () {
+        var lines = [];
+        function paint() {
+          var box = document.getElementById('__diag');
+          if (!box) {
+            box = document.createElement('pre');
+            box.id = '__diag';
+            box.style.cssText =
+              'position:fixed;left:0;right:0;bottom:0;max-height:60%;overflow:auto;margin:0;padding:10px;' +
+              'background:#1b1b1f;color:#ff9a9a;font:12px/1.45 monospace;white-space:pre-wrap;' +
+              'z-index:2147483647;-webkit-user-select:text;user-select:text';
+            (document.body || document.documentElement).appendChild(box);
+          }
+          box.textContent = lines.join('\n');
+        }
+        window.__diag = function (msg) {
+          lines.push(String(msg));
+          paint();
+        };
+        window.addEventListener(
+          'error',
+          function (e) {
+            var t = e && e.target;
+            if (t && t !== window && t.tagName) {
+              window.__diag('RESOURCE FAIL: ' + (t.src || t.href || t.tagName));
+            } else {
+              window.__diag(
+                'ERROR: ' + (e.message || e.type) +
+                  '\n  at ' + (e.filename || '?') + ':' + (e.lineno || 0) + ':' + (e.colno || 0)
+              );
+            }
+          },
+          true
+        );
+        window.addEventListener('unhandledrejection', function (e) {
+          var r = e && e.reason;
+          window.__diag('REJECT: ' + ((r && (r.stack || r.message)) || r));
+        });
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          if (!root || root.childNodes.length === 0) {
+            window.__diag(
+              '页空白（5s）\nUA: ' + navigator.userAgent +
+                '\nsecure: ' + window.isSecureContext +
+                '\nindexedDB: ' + typeof indexedDB +
+                '\nlocation: ' + location.href
+            );
+          }
+        }, 5000);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
